@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <script src="tags.js" async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título da Página</title>
+
+    <!-- Meta Tags para SEO -->
+    <meta name="description" content="Descrição da página para SEO">
+    <meta name="keywords" content="palavra-chave1, palavra-chave2, palavra-chave3">
+    <meta name="author" content="Seu Nome">
+    <link rel="canonical" href="URL_CANONICAL_DA_PAGINA" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- CSS -->
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header, main, footer {
+            padding: 20px;
+            margin: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos da barra de carregamento */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Fica acima de outros conteúdos */
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            body {
+                padding: 0 10px;
+            }
+
+            header, main, footer {
+                margin: 5px 0;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <!-- Scripts do Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=SEU_ID_DE_TRACKING"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'SEU_ID_DE_TRACKING');
+    </script>
+
+    <!-- Pixel do Facebook -->
+    <script>
+        !function(f,b,e,v,n,t,s) {
+            if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s);
+        }(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'SEU_ID_DO_PIXEL'); // Insira seu ID do Pixel aqui
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" 
+        src="https://www.facebook.com/tr?id=SEU_ID_DO_PIXEL&ev=PageView&noscript=1"/>
+    </noscript>
+</head>
+<body>
+    <!-- Barra de Carregamento -->
+    <div id="loading" class="loading">
+        <div class="loader"></div>
+    </div>
+
+    <div class="content" style="display: none;">
+        <header>
+            <h1>Título da Página</h1>
+            <!-- Conteúdo do cabeçalho -->
+        </header>
+
+        <main>
+            <!-- Conteúdo principal da página -->
+            <p>Bem-vindo à sua página!</p>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Seu Nome. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- Script para controle da barra de carregamento -->
+    <script>
+        // Exibe a barra de carregamento
+        document.getElementById("loading").style.display = "flex";
+
+        // Simula um tempo de carregamento (substitua isso pela lógica real)
+        window.onload = function() {
+            // Oculta a barra de carregamento e mostra o conteúdo
+            document.getElementById("loading").style.display = "none";
+            document.querySelector(".content").style.display = "block";
+        };
+    </script>
+</body>
+</html>
