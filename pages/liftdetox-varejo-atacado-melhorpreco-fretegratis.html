@@ -93,17 +93,17 @@
         <a class="botao-oferta" href="https://ev.braip.com/ref?pl=plaqq68x&ck=chew8wl8&af=afigggp5j" target="_blank">
             <span>🔖 Lift Detox Black - 5 Potes por R$ 227,00</span>
         </a>
-                <a class="botao-oferta" href="https://www.exemplo.com/oferta3" target="_blank">
-            <span>🔖 Oferta 3</span>
+                <a class="botao-oferta" href="https://ev.braip.com/ref?pl=plagjyq8&ck=che486jq&af=afigggp5j" target="_blank">
+            <span>🔖 20 Potes por 800,00</span>
         </a>
-                <a class="botao-oferta" href="https://www.exemplo.com/oferta3" target="_blank">
-            <span>🔖 Oferta 3</span>
+                <a class="botao-oferta" href="https://ev.braip.com/ref?pl=pla2gqxn&ck=che486jq&af=afigggp5j" target="_blank">
+            <span>🔖 30 Potes por 1200,00</span>
         </a>
-                <a class="botao-oferta" href="https://www.exemplo.com/oferta3" target="_blank">
-            <span>🔖 Oferta 3</span>
+                <a class="botao-oferta" href="https://ev.braip.com/ref?pl=plal920o&ck=che486jq&af=afigggp5j" target="_blank">
+            <span>🔖 40 Potes por 1600,00</span>
         </a>
-                <a class="botao-oferta" href="https://www.exemplo.com/oferta3" target="_blank">
-            <span>🔖 Oferta 3</span>
+                <a class="botao-oferta" href="https://ev.braip.com/ref?pl=pla9p4my&ck=che486jq&af=afigggp5j" target="_blank">
+            <span>🔖 50 Potes por 2000,00</span>
         </a>
                 <a class="botao-oferta" href="https://www.exemplo.com/oferta3" target="_blank">
             <span>🔖 Oferta 3</span>
@@ -116,8 +116,13 @@
         </a>
     </div>
 
-    <script>
-        // Não é mais necessário o JavaScript para abrir links, pois estamos usando <a> com target="_blank"
+   <script>
+        // Captura a URL da página atual
+        const currentUrl = encodeURIComponent(window.location.href);
+        const whatsappButton = document.getElementById('whatsapp-button');
+
+        // Define a URL do botão de compartilhar no WhatsApp
+        whatsappButton.href = `https://api.whatsapp.com/send?text=Confira%20essa%20oferta:%20${currentUrl}`;
     </script>
 </body>
 </html>
