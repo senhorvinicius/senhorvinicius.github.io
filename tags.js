@@ -7,3 +7,5 @@
 
   gtag('config', 'G-68NNQZD8FS');
 </script>
+
+<meta name="google-site-verification" content="JdfoyDnpNxM3HyFNnbC5b-dvZjXHPO7vzGPePE3juXw" />
