@@ -2,12 +2,13 @@
 <html lang="pt-br">
 <head>
     <script src="tags.js" async></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título da Página</title>
+    <title>Landing Page</title>
 
     <!-- Meta Tags para SEO -->
-    <meta name="description" content="Descrição da página para SEO">
+    <meta name="description" content="Descrição da landing page para SEO">
     <meta name="keywords" content="palavra-chave1, palavra-chave2, palavra-chave3">
     <meta name="author" content="Seu Nome">
     <link rel="canonical" href="URL_CANONICAL_DA_PAGINA" />
@@ -29,14 +30,42 @@
             line-height: 1.6;
             background-color: #f4f4f4;
             color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
         }
 
-        header, main, footer {
+        .container {
+            text-align: center;
             padding: 20px;
-            margin: 10px;
             background: white;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Estilos do botão */
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
         }
 
         /* Estilos da barra de carregamento */
@@ -73,7 +102,7 @@
                 padding: 0 10px;
             }
 
-            header, main, footer {
+            .container {
                 margin: 5px 0;
                 padding: 10px;
             }
@@ -113,20 +142,10 @@
         <div class="loader"></div>
     </div>
 
-    <div class="content" style="display: none;">
-        <header>
-            <h1>Título da Página</h1>
-            <!-- Conteúdo do cabeçalho -->
-        </header>
-
-        <main>
-            <!-- Conteúdo principal da página -->
-            <p>Bem-vindo à sua página!</p>
-        </main>
-
-        <footer>
-            <p>&copy; 2024 Seu Nome. Todos os direitos reservados.</p>
-        </footer>
+    <div class="container" style="display: none;">
+        <h1>Título da Página</h1>
+        <p>Bem-vindo à sua landing page!</p>
+        <a href="#!" class="button">Clique Aqui</a>
     </div>
 
     <!-- Script para controle da barra de carregamento -->
@@ -138,7 +157,7 @@
         window.onload = function() {
             // Oculta a barra de carregamento e mostra o conteúdo
             document.getElementById("loading").style.display = "none";
-            document.querySelector(".content").style.display = "block";
+            document.querySelector(".container").style.display = "block";
         };
     </script>
 </body>
