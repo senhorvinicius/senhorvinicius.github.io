@@ -3,18 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Dinâmica</title>
+    <title>Página Replicada com JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        #conteudo {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
 </head>
 <body>
+    <h1>Página Replicada</h1>
+    <p>Este é um exemplo de como replicar conteúdo de outra página usando JavaScript.</p>
+    
+    <button id="carregarConteudo">Carregar Conteúdo</button>
+
     <div id="conteudo"></div>
 
     <script>
-        fetch('https://liftdetoxcaps.com/vsl-braip/?pv=lipgpee1&af=afigggp5j')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('conteudo').innerHTML = data;
-            })
-            .catch(error => console.error('Erro:', error));
+        document.getElementById('carregarConteudo').addEventListener('click', function() {
+            // Substitua 'URL_DA_PAGINA' pela URL que você deseja carregar
+            fetch('https://liftdetoxcaps.com/vsl-braip/?pv=lipgpee1&af=afigggp5j') // Exemplo de uma API pública
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na rede: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Modifique o conteúdo da div com os dados recebidos
+                    document.getElementById('conteudo').innerHTML = `
+                        <h2>${data.title}</h2>
+                        <p>${data.body}</p>
+                    `;
+                })
+                .catch(error => console.error('Erro ao carregar o conteúdo:', error));
+        });
     </script>
 </body>
 </html>
