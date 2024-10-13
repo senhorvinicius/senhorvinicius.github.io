@@ -3,52 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Replicada com JavaScript</title>
+    <title>Ofertas Imperdíveis - Promoções e Descontos</title>
+    <meta name="description" content="Descubra ofertas imperdíveis e promoções exclusivas enquanto assiste ao nosso vídeo. Navegue pelos melhores descontos e aproveite!">
+    <meta name="keywords" content="ofertas, promoções, descontos, compras, vídeo">
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #f3f4f6;
+            margin: 0;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+            max-width: 1200px; /* Limita a largura da página */
+            margin: 0 auto; /* Centraliza a página */
         }
-        #conteudo {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin-bottom: 20px; /* Espaçamento abaixo do vídeo */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ofertas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Espaçamento entre os botões */
+        }
+
+        .botao-oferta {
+            background-color: #28a745; /* Verde */
+            color: white;
+            border: none;
             border-radius: 5px;
-            background-color: #fff;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%; /* Para ocupar toda a largura em telas pequenas */
+            max-width: 300px; /* Largura máxima */
+            text-align: center;
+            text-decoration: none; /* Remove o sublinhado */
+        }
+
+        .botao-oferta:hover {
+            background-color: #218838; /* Verde mais escuro ao passar o mouse */
+            transform: scale(1.05); /* Aumenta ligeiramente o botão */
+        }
+
+        .botao-oferta:active {
+            transform: scale(0.95); /* Diminui ligeiramente quando clicado */
+        }
+
+        /* Estilo para acessibilidade */
+        button:focus {
+            outline: 2px solid #0056b3; /* Estilo de foco */
         }
     </style>
 </head>
 <body>
-    <h1>Página Replicada</h1>
-    <p>Este é um exemplo de como replicar conteúdo de outra página usando JavaScript.</p>
-    
-    <button id="carregarConteudo">Carregar Conteúdo</button>
+    <h1>Ofertas Imperdíveis!</h1>
 
-    <div id="conteudo"></div>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/watch?v=YV334PlnuRM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="ofertas">
+        <a class="botao-oferta" href="https://www.exemplo.com/oferta1" target="_blank">
+            <span>🔖 Oferta 1</span>
+        </a>
+        <a class="botao-oferta" href="https://www.exemplo.com/oferta2" target="_blank">
+            <span>🔖 Oferta 2</span>
+        </a>
+        <a class="botao-oferta" href="https://www.exemplo.com/oferta3" target="_blank">
+            <span>🔖 Oferta 3</span>
+        </a>
+    </div>
 
     <script>
-        document.getElementById('carregarConteudo').addEventListener('click', function() {
-            // Substitua 'URL_DA_PAGINA' pela URL que você deseja carregar
-            fetch('https://liftdetoxcaps.com/vsl-braip/?pv=lipgpee1&af=afigggp5j') // Exemplo de uma API pública
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na rede: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Modifique o conteúdo da div com os dados recebidos
-                    document.getElementById('conteudo').innerHTML = `
-                        <h2>${data.title}</h2>
-                        <p>${data.body}</p>
-                    `;
-                })
-                .catch(error => console.error('Erro ao carregar o conteúdo:', error));
-        });
+        // Não é mais necessário o JavaScript para abrir links, pois estamos usando <a> com target="_blank"
     </script>
 </body>
 </html>
