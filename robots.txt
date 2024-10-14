@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://senhorvinicius.github.io/sitemap.xml
