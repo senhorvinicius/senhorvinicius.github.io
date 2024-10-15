@@ -1,25 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-PT" prefix="og: https://ogp.me/ns#">
 <head>
+    <script src="script.js" defer></script>
+    <!-- Div onde o header será carregado -->
+    <div id="header-container"></div>
 
-
- <body>
-    <div id="header"></div>
-
-    <script>
-        // Carregar o header.html
-        fetch('header')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Rede não disponível.');
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('header').innerHTML = data;
-            })
-            .catch(error => console.error('Erro ao carregar o header:', error));
-    </script>
 
     <style>
         body {
