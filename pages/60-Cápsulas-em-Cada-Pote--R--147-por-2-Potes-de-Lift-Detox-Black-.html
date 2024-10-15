@@ -3,8 +3,23 @@
 <head>
 
 
-  <script src="/senhorvinicius/senhorvinicius.github.io/head"></script>
-	  <script src="/senhorvinicius/senhorvinicius.github.io/header"></script>
+ <body>
+    <div id="header"></div>
+
+    <script>
+        // Carregar o header.html
+        fetch('header')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Rede não disponível.');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Erro ao carregar o header:', error));
+    </script>
 
     <style>
         body {
