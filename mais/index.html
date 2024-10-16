@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
-     <script src="https://senhorvinicius.github.io/header.js" defer></script>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizador de PDF</title>
+    <title>Catálogo de PDFs</title>
     <style>
-        /* Estilização da moldura */
+        /* Estilização do catálogo */
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .item-pdf {
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .item-pdf:hover {
+            transform: scale(1.05);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: auto;
+        }
+
         .pdf-moldura {
             border: 2px solid #444;
             border-radius: 8px;
@@ -18,71 +43,78 @@
             display: block;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-
-        /* Estilização do seletor */
-        .seletor-pdf {
-            display: block;
-            width: 80%;
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid #444;
-            border-radius: 8px;
-            background-color: #f0f0f0;
-            color: #333;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            appearance: none;
-            cursor: pointer;
-        }
-
-        .seletor-pdf:hover {
-            background-color: #e0e0e0;
-        }
-
-        .seletor-pdf:focus {
-            outline: none;
-            border-color: #007BFF;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-        }
     </style>
+    <!-- Adicionando a biblioteca PDF.js -->
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 </head>
 <body>
-    <h1>Visualizador de PDF</h1>
+    <h1>Catálogo de PDFs</h1>
 
-    <!-- Seletor de PDF estilizado -->
-    <select class="seletor-pdf" id="seletorPDF" onchange="carregarPDFSelecionado()">
-        <option value="">Selecione um PDF</option>
-    </select>
+    <!-- Catálogo de PDFs -->
+    <div class="catalogo" id="catalogoPDFs"></div>
 
     <!-- Moldura do PDF -->
     <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
 
     <script>
-        // Função para carregar o arquivo JSON e preencher o seletor
+        // Configuração do PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+        // Carregar os PDFs a partir do JSON
         fetch('https://senhorvinicius.github.io/mais/pdfs.json')
             .then(response => response.json())
-            .then(data => {
-                const seletor = document.getElementById('seletorPDF');
-                data.forEach(pdf => {
-                    const nomeArquivo = pdf.split('/').pop(); // Extrai o nome do arquivo
-                    const opcao = document.createElement('option');
-                    opcao.value = pdf;
-                    opcao.textContent = nomeArquivo;
-                    seletor.appendChild(opcao);
+            .then(pdfs => {
+                const catalogo = document.getElementById('catalogoPDFs');
+                pdfs.forEach(pdfUrl => {
+                    renderizarMiniatura(pdfUrl, catalogo);
                 });
             })
             .catch(error => console.error('Erro ao carregar a lista de PDFs:', error));
 
+        // Função para renderizar a miniatura do PDF
+        function renderizarMiniatura(pdfUrl, catalogo) {
+            // Carregar o documento PDF
+            pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+                // Pegar a primeira página
+                pdf.getPage(1).then(page => {
+                    const viewport = page.getViewport({ scale: 0.5 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+
+                    // Renderizar a página no canvas
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(() => {
+                        // Criar o elemento de item do catálogo
+                        const itemPDF = document.createElement('div');
+                        itemPDF.classList.add('item-pdf');
+                        itemPDF.onclick = () => carregarPDF(pdfUrl);
+
+                        // Adicionar a miniatura ao item
+                        const imgThumbnail = document.createElement('img');
+                        imgThumbnail.src = canvas.toDataURL();
+                        imgThumbnail.classList.add('thumbnail');
+                        itemPDF.appendChild(imgThumbnail);
+
+                        // Adicionar o nome do arquivo
+                        const nomeArquivo = document.createElement('p');
+                        nomeArquivo.textContent = pdfUrl.split('/').pop();
+                        itemPDF.appendChild(nomeArquivo);
+
+                        // Adicionar o item ao catálogo
+                        catalogo.appendChild(itemPDF);
+                    });
+                });
+            }).catch(error => console.error('Erro ao renderizar a miniatura do PDF:', error));
+        }
+
         // Função para carregar o PDF selecionado
-        function carregarPDFSelecionado() {
-            const seletor = document.getElementById('seletorPDF');
-            const caminhoPDF = seletor.value;
-            if (caminhoPDF) {
-                document.getElementById('pdfFrame').src = caminhoPDF;
-            } else {
-                document.getElementById('pdfFrame').src = ""; // Limpa o iframe se nenhum PDF for selecionado
-            }
+        function carregarPDF(caminhoPDF) {
+            document.getElementById('pdfFrame').src = caminhoPDF;
         }
     </script>
 </body>
