@@ -15,6 +15,7 @@ nh// header.js
         `;
         document.head.appendChild(gtagInit);
 
+// header.js
 
 // Função para criar a header
 function criarHeader() {
@@ -31,7 +32,7 @@ function criarHeader() {
 
     // Título da header
     const titulo = document.createElement('h1');
-    titulo.innerText = 'senhorvinicius';
+    titulo.innerText = 'Meu Catálogo de PDFs';
     titulo.style.margin = '0'; // Remove margens
     titulo.style.fontSize = '24px'; // Tamanho da fonte
 
@@ -40,9 +41,9 @@ function criarHeader() {
 
     // Cria os links de navegação
     const links = [
-        { texto: 'Livro Pablo Marcal Gratis', url: 'https://senhorvinicius.github.io/mais/' },   // Substitua pelo URL desejado
-        { texto: '100 mil canais por R$ 19,9', url: 'https://senhorvinicius.github.io/reiflick/index.html' },   // Substitua pelo URL desejado
-        { texto: 'Contato', url: 'https://wa.me/5516997235877?text=Ola' } // Substitua pelo URL desejado
+        { texto: 'Home', url: 'index.html' },   // Substitua pelo URL desejado
+        { texto: 'Sobre', url: 'sobre.html' },   // Substitua pelo URL desejado
+        { texto: 'Contato', url: 'contato.html' } // Substitua pelo URL desejado
     ];
 
     links.forEach(linkInfo => {
@@ -73,3 +74,4 @@ function criarHeader() {
 
 // Chama a função para criar a header
 criarHeader();
+
