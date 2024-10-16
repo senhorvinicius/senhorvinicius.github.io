@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
+     <script src="https://senhorvinicius.github.io/header.js" defer></script>
+  <div id="headerContainer"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar PDF</title>
+    <style>
+        /* Estilização da moldura */
+        .pdf-moldura {
+            border: 2px solid #000; /* Borda da moldura */
+            width: 80%;
+            height: 600px;
+            margin: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visualizador de PDF</h1>
+    <iframe class="pdf-moldura" id="pdfFrame" src="https://senhorvinicius.github.io/mais/pablo-marcal-os-codigos-do-milhao.pdf" type="application/pdf"></iframe>
+
+    <script>
+        // Função para atualizar o PDF na moldura
+        function carregarPDF(caminhoPDF) {
+            document.getElementById('pdfFrame').src = caminhoPDF;
+        }
+
+        // Exemplo de uso: carregar um novo PDF dinamicamente
+        // carregarPDF('pdfs/novo_arquivo.pdf');
+    </script>
+</body>
+</html>
