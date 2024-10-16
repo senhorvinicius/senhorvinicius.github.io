@@ -2,34 +2,88 @@
 <html lang="pt-br">
   <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
      <script src="https://senhorvinicius.github.io/header.js" defer></script>
-  <div id="headerContainer"></div>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizar PDF</title>
+    <title>Visualizador de PDF</title>
     <style>
         /* Estilização da moldura */
         .pdf-moldura {
-            border: 2px solid #000; /* Borda da moldura */
+            border: 2px solid #444;
+            border-radius: 8px;
             width: 80%;
             height: 600px;
-            margin: auto;
+            margin: 20px auto;
             display: block;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilização do seletor */
+        .seletor-pdf {
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .seletor-pdf:hover {
+            background-color: #e0e0e0;
+        }
+
+        .seletor-pdf:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
         }
     </style>
 </head>
 <body>
     <h1>Visualizador de PDF</h1>
-    <iframe class="pdf-moldura" id="pdfFrame" src="https://senhorvinicius.github.io/mais/pablo-marcal-os-codigos-do-milhao.pdf" type="application/pdf"></iframe>
+
+    <!-- Seletor de PDF estilizado -->
+    <select class="seletor-pdf" id="seletorPDF" onchange="carregarPDFSelecionado()">
+        <option value="">Selecione um PDF</option>
+    </select>
+
+    <!-- Moldura do PDF -->
+    <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
 
     <script>
-        // Função para atualizar o PDF na moldura
-        function carregarPDF(caminhoPDF) {
-            document.getElementById('pdfFrame').src = caminhoPDF;
-        }
+        // Função para carregar o arquivo JSON e preencher o seletor
+        fetch('pdfs.json')
+            .then(response => response.json())
+            .then(data => {
+                const seletor = document.getElementById('seletorPDF');
+                data.forEach(pdf => {
+                    const nomeArquivo = pdf.split('/').pop(); // Extrai o nome do arquivo
+                    const opcao = document.createElement('option');
+                    opcao.value = pdf;
+                    opcao.textContent = nomeArquivo;
+                    seletor.appendChild(opcao);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar a lista de PDFs:', error));
 
-        // Exemplo de uso: carregar um novo PDF dinamicamente
-        // carregarPDF('pdfs/novo_arquivo.pdf');
+        // Função para carregar o PDF selecionado
+        function carregarPDFSelecionado() {
+            const seletor = document.getElementById('seletorPDF');
+            const caminhoPDF = seletor.value;
+            if (caminhoPDF) {
+                document.getElementById('pdfFrame').src = caminhoPDF;
+            } else {
+                document.getElementById('pdfFrame').src = ""; // Limpa o iframe se nenhum PDF for selecionado
+            }
+        }
     </script>
 </body>
 </html>
