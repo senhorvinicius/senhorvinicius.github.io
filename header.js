@@ -14,7 +14,6 @@ nh// header.js
             gtag('config', 'G-68NNQZD8FS');
         `;
         document.head.appendChild(gtagInit);
-
 // header.js
 
 // Função para criar a header
@@ -71,6 +70,10 @@ function criarHeader() {
         console.error('headerContainer não encontrado no DOM.');
     }
 }
+
+// Chama a função para criar a header
+criarHeader();
+
 
 // Chama a função para criar a header
 criarHeader();
