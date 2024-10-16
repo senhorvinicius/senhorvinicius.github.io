@@ -61,7 +61,7 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
         // Carregar os PDFs a partir do JSON
-        fetch('senhorvinicius/senhorvinicius.github.io/mais/pdfs.json')
+        fetch('/senhorvinicius/senhorvinicius.github.io/mais/pdfs.json')
             .then(response => response.json())
             .then(pdfs => {
                 const catalogo = document.getElementById('catalogoPDFs');
