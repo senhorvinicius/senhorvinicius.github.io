@@ -36,64 +36,70 @@
 
 
 
-
-        // Função para criar um pop-up com um botão de contagem regressiva
-function criarPopupCountdown() {
-    // Cria o contêiner do pop-up
-    const popupContainer = document.createElement('div');
-    popupContainer.style.position = 'fixed';
-    popupContainer.style.top = '50%';
-    popupContainer.style.left = '50%';
-    popupContainer.style.transform = 'translate(-50%, -50%)';
-    popupContainer.style.backgroundColor = 'white';
-    popupContainer.style.border = '2px solid #444';
-    popupContainer.style.borderRadius = '8px';
-    popupContainer.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
-    popupContainer.style.zIndex = '1000'; // Certifica que o pop-up esteja acima de outros elementos
-    popupContainer.style.padding = '20px';
-    popupContainer.style.textAlign = 'center';
-    document.body.appendChild(popupContainer);
-
-    // Cria o botão
+// Função para criar um botão com contagem regressiva
+function criarBotaoCountdown() {
+    // Cria o contêiner do botão
     const botao = document.createElement('button');
-    botao.style.backgroundColor = '#4CAF50'; // Cor de fundo
+    botao.style.position = 'fixed';
+    botao.style.top = '20px'; // Posição no topo
+    botao.style.left = '50%'; // Centraliza horizontalmente
+    botao.style.transform = 'translateX(-50%)'; // Ajusta a posição para o centro
+    botao.style.backgroundColor = '#FF5733'; // Cor de fundo
     botao.style.color = 'white'; // Cor do texto
     botao.style.border = 'none'; // Sem borda
-    botao.style.padding = '15px 32px'; // Espaçamento
+    botao.style.padding = '15px 30px'; // Espaçamento
     botao.style.textAlign = 'center'; // Centraliza texto
     botao.style.textDecoration = 'none'; // Sem sublinhado
-    botao.style.display = 'inline-block'; // Exibe como bloco inline
-    botao.style.fontSize = '16px'; // Tamanho da fonte
+    botao.style.display = 'none'; // Inicialmente escondido
+    botao.style.fontSize = '18px'; // Tamanho da fonte
     botao.style.margin = '4px 2px'; // Margem
     botao.style.cursor = 'pointer'; // Cursor pointer
-    botao.style.borderRadius = '8px'; // Bordas arredondadas
-    botao.id = 'botaoCountdown'; // ID do botão
+    botao.style.borderRadius = '25px'; // Bordas arredondadas
+    botao.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Sombra
+    botao.style.transition = 'background-color 0.3s, transform 0.3s'; // Transições
+    document.body.appendChild(botao);
 
-    // Adiciona o texto inicial
-    let contador = 10;
-    botao.textContent = `Redirecionar em ${contador} segundos`;
-    popupContainer.appendChild(botao);
-
-    // Adiciona um evento de clique para fechar o pop-up manualmente
-    botao.onclick = () => {
-        clearInterval(intervalo);
-        popupContainer.style.display = 'none'; // Esconde o pop-up
+    // Efeito de hover
+    botao.onmouseover = () => {
+        botao.style.backgroundColor = '#FF4C20'; // Cor ao passar o mouse
+        botao.style.transform = 'scale(1.05)'; // Aumenta o botão ao passar o mouse
+    };
+    botao.onmouseout = () => {
+        botao.style.backgroundColor = '#FF5733'; // Cor original
+        botao.style.transform = 'scale(1)'; // Tamanho original
     };
 
-    // Função para atualizar a contagem
-    const intervalo = setInterval(() => {
-        contador--;
-        botao.textContent = `Redirecionar em ${contador} segundos`;
+    // Variável de contagem
+    let contador = 10;
+    
+    // Atualiza o texto do botão
+    function atualizarTextoBotao() {
+        botao.textContent = `Abrir nova guia em ${contador} segundos`;
+    }
 
-        if (contador <= 0) {
-            clearInterval(intervalo);
-            popupContainer.style.display = 'none'; // Esconde o pop-up
-            // Redireciona para a URL especificada
-            window.location.href = 'https://www.exemplo.com'; // Substitua pelo seu link
-        }
-    }, 1000); // Atualiza a cada segundo
+    // Função para mostrar o botão
+    function mostrarBotao() {
+        botao.style.display = 'block'; // Mostra o botão
+        atualizarTextoBotao(); // Atualiza o texto
+        const intervalo = setInterval(() => {
+            contador--;
+            atualizarTextoBotao();
+
+            if (contador <= 0) {
+                clearInterval(intervalo);
+                botao.style.display = 'none'; // Esconde o botão após 10 segundos
+                // Abrir a nova guia após 10 segundos
+                window.open('https://www.exemplo.com', '_blank'); // Substitua a URL aqui
+            }
+        }, 1000); // Atualiza a cada segundo
+    }
+
+    // Apresenta o botão após 10 segundos do carregamento
+    setTimeout(() => {
+        contador = 10; // Reinicia o contador
+        mostrarBotao(); // Mostra o botão
+    }, 10000); // 10 segundos após o carregamento
 }
 
-// Chama a função para criar o pop-up
-window.onload = criarPopupCountdown;
-
+// Chama a função para criar o botão
+window.onload = criarBotaoCountdown;
