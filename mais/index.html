@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
+     <script src="https://senhorvinicius.github.io/header.js" defer></script>
+  <div id="headerContainer"></div>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de PDFs</title>
     <style>
         /* Estilização do catálogo */
-        .catalogo {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+
+        .lista-pdfs {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
         }
 
         .item-pdf {
-            width: 200px;
-            text-align: center;
-            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
             border: 1px solid #ccc;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            border-radius: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .item-pdf:hover {
-            transform: scale(1.05);
-        }
-
-        .thumbnail {
-            width: 100%;
-            height: auto;
+            background-color: #e9e9e9;
         }
 
         .pdf-moldura {
@@ -40,7 +47,7 @@
             width: 80%;
             height: 600px;
             margin: 20px auto;
-            display: block;
+            display: none; /* Inicialmente escondido */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
     </style>
@@ -50,8 +57,8 @@
 <body>
     <h1>Catálogo de PDFs</h1>
 
-    <!-- Catálogo de PDFs -->
-    <div class="catalogo" id="catalogoPDFs"></div>
+    <!-- Lista de PDFs -->
+    <ul class="lista-pdfs" id="listaPDFs"></ul>
 
     <!-- Moldura do PDF -->
     <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
@@ -60,23 +67,35 @@
         // Configuração do PDF.js
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
-        // Carregar os PDFs a partir do JSON
-        fetch('mais/pdfs.json')
-            .then(response => response.json())
+        // Carregar os PDFs a partir do JSON na pasta 'dados'
+        fetch('dados/pdfs.json')  // Caminho para o JSON
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar o JSON: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(pdfs => {
-                const catalogo = document.getElementById('catalogoPDFs');
+                const lista = document.getElementById('listaPDFs');
                 pdfs.forEach(pdfUrl => {
-                    renderizarMiniatura(pdfUrl, catalogo);
+                    const nomeArquivo = pdfUrl.split('/').pop(); // Nome do arquivo
+                    const itemPDF = document.createElement('li');
+                    itemPDF.classList.add('item-pdf');
+                    itemPDF.textContent = nomeArquivo;
+
+                    // Adiciona o evento de clique
+                    itemPDF.onclick = () => carregarPDF(pdfUrl);
+                    lista.appendChild(itemPDF);
                 });
             })
             .catch(error => console.error('Erro ao carregar a lista de PDFs:', error));
 
-        // Função para renderizar a miniatura do PDF
-        function renderizarMiniatura(pdfUrl, catalogo) {
-            // Carregar o documento PDF
-            pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-                // Pegar a primeira página
-                pdf.getPage(1).then(page => {
-                    const viewport = page.getViewport({ scale: 0.5 });
-                    const canvas = document.createElement('canvas');
-                    const context = canvas
+        // Função para carregar o PDF selecionado
+        function carregarPDF(caminhoPDF) {
+            const pdfFrame = document.getElementById('pdfFrame');
+            pdfFrame.src = caminhoPDF;
+            pdfFrame.style.display = 'block'; // Mostrar a moldura do PDF
+        }
+    </script>
+</body>
+</html>
