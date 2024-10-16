@@ -42,10 +42,50 @@
 })();
 
 
+// Cria e adiciona o botão ao corpo da página
+const button = document.createElement('button');
+button.id = 'redirectButton';
+button.innerText = 'Abrir página em 10 segundos';
+document.body.appendChild(button);
 
-// Função para redirecionar para uma nova página após 10 segundos
-setTimeout(function() {
-    // Defina o link para onde você quer redirecionar
-    const linkRedirecionamento = "https://www.seulink.com"; // Altere para o link desejado
-    window.open(linkRedirecionamento, '_blank'); // Abre em uma nova aba
-}, 10000); // 10000 milissegundos = 10 segundos
+// Cria e adiciona o contador ao corpo da página
+const countdown = document.createElement('div');
+countdown.id = 'countdown';
+countdown.innerText = '10';
+document.body.appendChild(countdown);
+
+// Define o link para abrir após 10 segundos
+const linkToOpen = 'https://www.exemplo.com'; // Substitua pelo link desejado
+
+// Função que atualiza o countdown e abre a nova página
+let timeLeft = 10;
+const timer = setInterval(() => {
+    timeLeft -= 1;
+    countdown.innerText = timeLeft;
+
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        // Abre a nova aba com o link especificado
+        window.open(linkToOpen, '_blank');
+        button.disabled = true; // Desativa o botão
+        button.innerText = 'Página aberta!';
+    }
+}, 1000);
+
+// Estiliza o botão
+button.style.padding = '15px 30px';
+button.style.fontSize = '18px';
+button.style.backgroundColor = '#4CAF50'; // Cor do botão
+button.style.color = 'white'; // Cor do texto
+button.style.border = 'none';
+button.style.borderRadius = '5px';
+button.style.cursor = 'pointer';
+button.style.transition = 'background-color 0.3s';
+
+button.onmouseover = () => {
+    button.style.backgroundColor = '#45a049'; // Cor ao passar o mouse
+};
+
+button.onmouseout = () => {
+    button.style.backgroundColor = '#4CAF50'; // Cor padrão
+};
