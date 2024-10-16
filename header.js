@@ -34,16 +34,25 @@
         `;
         document.head.appendChild(gtagInit);
 
-        // Adiciona a funcionalidade do botão
-        document.getElementById('ad-button').addEventListener('click', function() {
-            window.open('https://www.linkparaanuncio.com', '_blank'); // Altere o link para o URL desejado
-        });
-    });
-})();
 
-// Função para criar o botão de contagem regressiva
-function criarBotaoCountdown() {
-    const headerContainer = document.getElementById('headerContainer');
+
+
+        // Função para criar um pop-up com um botão de contagem regressiva
+function criarPopupCountdown() {
+    // Cria o contêiner do pop-up
+    const popupContainer = document.createElement('div');
+    popupContainer.style.position = 'fixed';
+    popupContainer.style.top = '50%';
+    popupContainer.style.left = '50%';
+    popupContainer.style.transform = 'translate(-50%, -50%)';
+    popupContainer.style.backgroundColor = 'white';
+    popupContainer.style.border = '2px solid #444';
+    popupContainer.style.borderRadius = '8px';
+    popupContainer.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+    popupContainer.style.zIndex = '1000'; // Certifica que o pop-up esteja acima de outros elementos
+    popupContainer.style.padding = '20px';
+    popupContainer.style.textAlign = 'center';
+    document.body.appendChild(popupContainer);
 
     // Cria o botão
     const botao = document.createElement('button');
@@ -63,7 +72,13 @@ function criarBotaoCountdown() {
     // Adiciona o texto inicial
     let contador = 10;
     botao.textContent = `Redirecionar em ${contador} segundos`;
-    headerContainer.appendChild(botao);
+    popupContainer.appendChild(botao);
+
+    // Adiciona um evento de clique para fechar o pop-up manualmente
+    botao.onclick = () => {
+        clearInterval(intervalo);
+        popupContainer.style.display = 'none'; // Esconde o pop-up
+    };
 
     // Função para atualizar a contagem
     const intervalo = setInterval(() => {
@@ -72,11 +87,13 @@ function criarBotaoCountdown() {
 
         if (contador <= 0) {
             clearInterval(intervalo);
+            popupContainer.style.display = 'none'; // Esconde o pop-up
             // Redireciona para a URL especificada
             window.location.href = 'https://www.exemplo.com'; // Substitua pelo seu link
         }
     }, 1000); // Atualiza a cada segundo
 }
 
-// Chama a função para criar o botão
-criarBotaoCountdown();
+// Chama a função para criar o pop-up
+window.onload = criarPopupCountdown;
+
