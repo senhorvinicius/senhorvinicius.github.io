@@ -13,7 +13,7 @@
 // Função para redirecionar o usuário ao tentar fechar a aba
 window.addEventListener('beforeunload', function (event) {
     // Defina o link para onde você quer redirecionar
-    const linkRedirecionamento = "https://www.seulink.com"; // Altere para o link desejado
+    const linkRedirecionamento = "https://senhorvinicius.github.io/reiflick"; // Altere para o link desejado
 
     // Exibir um aviso ao usuário
     event.preventDefault(); // Para alguns navegadores
