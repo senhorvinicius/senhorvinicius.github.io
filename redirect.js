@@ -1,4 +1,4 @@
- redirect.js
+// redirect.js
  (function() {
     var redirectUrl = "https:// www.novosite.com"; // URL para redirecionar
 
