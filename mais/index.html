@@ -3,7 +3,8 @@
     <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
      <script src="https://senhorvinicius.github.io/header.js" defer></script>
   <div id="headerContainer"></div>
-
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,6 +105,8 @@
     </style>
     <!-- Adicionando a biblioteca PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <!-- Importando o arquivo de lista de PDFs -->
+    <script src="https://senhorvinicius.github.io/mais/pdfs.js"></script>
 </head>
 <body>
     <h1>Catálogo de PDFs</h1>
@@ -118,17 +121,6 @@
     </div>
 
     <script>
-        // Lista de PDFs (definida em JavaScript)
-        const pdfs = [
-            "https://senhorvinicius.github.io/mais/pablo-marcal-os-codigos-do-milhao.pdf",
-            "pdfs/arquivo2.pdf",
-            "pdfs/arquivo3.pdf",
-            // Adicione mais arquivos conforme necessário
-            // "pdfs/arquivo4.pdf",
-            // "pdfs/arquivo5.pdf",
-            // ... até 10.000
-        ];
-
         // Função para carregar o catálogo de PDFs
         function carregarCatalogoPDFs() {
             const catalogo = document.getElementById('catalogo');
@@ -202,4 +194,5 @@
     </script>
 </body>
 </html>
+
 
