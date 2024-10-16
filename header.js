@@ -34,72 +34,69 @@
         `;
         document.head.appendChild(gtagInit);
 
+/////////////////////
 
 
-// Função para criar um botão com contagem regressiva
-function criarBotaoCountdown() {
-    // Cria o contêiner do botão
-    const botao = document.createElement('button');
-    botao.style.position = 'fixed';
-    botao.style.top = '20px'; // Posição no topo
-    botao.style.left = '50%'; // Centraliza horizontalmente
-    botao.style.transform = 'translateX(-50%)'; // Ajusta a posição para o centro
-    botao.style.backgroundColor = '#FF5733'; // Cor de fundo
-    botao.style.color = 'white'; // Cor do texto
-    botao.style.border = 'none'; // Sem borda
-    botao.style.padding = '15px 30px'; // Espaçamento
-    botao.style.textAlign = 'center'; // Centraliza texto
-    botao.style.textDecoration = 'none'; // Sem sublinhado
-    botao.style.display = 'none'; // Inicialmente escondido
-    botao.style.fontSize = '18px'; // Tamanho da fonte
-    botao.style.margin = '4px 2px'; // Margem
-    botao.style.cursor = 'pointer'; // Cursor pointer
-    botao.style.borderRadius = '25px'; // Bordas arredondadas
-    botao.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Sombra
-    botao.style.transition = 'background-color 0.3s, transform 0.3s'; // Transições
-    document.body.appendChild(botao);
+        // Função para criar e mostrar o pop-up
+function criarPopup() {
+    // Criar overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.zIndex = '999';
+    overlay.style.display = 'none'; // Inicialmente escondido
+    document.body.appendChild(overlay);
 
-    // Efeito de hover
-    botao.onmouseover = () => {
-        botao.style.backgroundColor = '#FF4C20'; // Cor ao passar o mouse
-        botao.style.transform = 'scale(1.05)'; // Aumenta o botão ao passar o mouse
-    };
-    botao.onmouseout = () => {
-        botao.style.backgroundColor = '#FF5733'; // Cor original
-        botao.style.transform = 'scale(1)'; // Tamanho original
-    };
+    // Criar pop-up
+    const popup = document.createElement('div');
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.backgroundColor = '#fff';
+    popup.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+    popup.style.padding = '20px';
+    popup.style.borderRadius = '8px';
+    popup.style.zIndex = '1000';
+    popup.style.width = '400px';
+    popup.style.display = 'none'; // Inicialmente escondido
+    document.body.appendChild(popup);
 
-    // Variável de contagem
-    let contador = 10;
-    
-    // Atualiza o texto do botão
-    function atualizarTextoBotao() {
-        botao.textContent = `Abrir nova guia em ${contador} segundos`;
-    }
+    // Conteúdo HTML do pop-up
+    popup.innerHTML = `
+        <h2>Bem-vindo ao nosso site!</h2>
+        <p>Este pop-up contém conteúdo em HTML. Você pode personalizá-lo como desejar.</p>
+        <div>
+            <h3>Conteúdo Adicional:</h3>
+            <p>Aqui estão algumas informações que você pode querer ver:</p>
+            <ul>
+                <li><strong>Informação 1:</strong> Detalhe interessante sobre o site.</li>
+                <li><strong>Informação 2:</strong> Outra informação relevante para os visitantes.</li>
+                <li><strong>Informação 3:</strong> Dicas e truques para navegar no site.</li>
+            </ul>
+        </div>
+        <img src="https://via.placeholder.com/150" alt="Imagem Exemplo" style="width: 100%; margin: 10px 0; border-radius: 5px;">
+        <p>Clique no botão abaixo para fechar.</p>
+        <button id="skipButton" style="background-color: #007BFF; color: white; border: none; padding: 15px 30px; font-size: 16px; cursor: pointer; border-radius: 5px;">Pular Propaganda</button>
+    `;
 
-    // Função para mostrar o botão
-    function mostrarBotao() {
-        botao.style.display = 'block'; // Mostra o botão
-        atualizarTextoBotao(); // Atualiza o texto
-        const intervalo = setInterval(() => {
-            contador--;
-            atualizarTextoBotao();
-
-            if (contador <= 0) {
-                clearInterval(intervalo);
-                botao.style.display = 'none'; // Esconde o botão após 10 segundos
-                // Abrir a nova guia após 10 segundos
-                window.open('https://www.exemplo.com', '_blank'); // Substitua a URL aqui
-            }
-        }, 1000); // Atualiza a cada segundo
-    }
-
-    // Apresenta o botão após 10 segundos do carregamento
+    // Exibir o pop-up após 10 segundos
     setTimeout(() => {
-        contador = 10; // Reinicia o contador
-        mostrarBotao(); // Mostra o botão
-    }, 10000); // 10 segundos após o carregamento
+        overlay.style.display = 'block'; 
+        popup.style.display = 'block'; 
+    }, 10000);
+
+    // Fechar o pop-up ao clicar no botão
+    document.getElementById('skipButton').addEventListener('click', () => {
+        overlay.style.display = 'none';
+        popup.style.display = 'none';
+    });
 }
 
-// Chama a função para criar o botão
-window.onload = criarBotaoCountdown;
+// Executar a função para criar o pop-up ao carregar a página
+window.onload = criarPopup;
+
