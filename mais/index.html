@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
-     <script src="https://senhorvinicius.github.io/header.js" defer></script>
-  <div id="headerContainer"></div>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,32 +76,10 @@
             margin: 20px auto;
             display: none; /* Inicialmente escondido */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            position: fixed; /* Posição fixa */
-            top: 20px; /* Distância do topo */
-            left: 50%; /* Centraliza horizontalmente */
-            transform: translateX(-50%); /* Centraliza horizontalmente */
-            z-index: 100; /* Aparece acima de outros elementos */
-            background-color: #fff; /* Fundo branco */
-            overflow: hidden; /* Oculta o conteúdo que sair da moldura */
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: rgba(255, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            z-index: 101; /* Coloca o botão acima da moldura */
         }
     </style>
     <!-- Adicionando a biblioteca PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <!-- Importando o arquivo de lista de PDFs -->
-    <script src="https://senhorvinicius.github.io/mais/pdfs.js"></script>
 </head>
 <body>
     <h1>Catálogo de PDFs</h1>
@@ -114,12 +88,20 @@
     <div class="catalogo" id="catalogo"></div>
 
     <!-- Moldura do PDF -->
-    <div class="pdf-moldura" id="pdfContainer">
-        <button class="close-button" id="closeButton">Fechar</button>
-        <iframe id="pdfFrame" src="" type="application/pdf"></iframe>
-    </div>
+    <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
 
     <script>
+        // Lista de PDFs (definida em JavaScript)
+        const pdfs = [
+            "https://senhorvinicius.github.io/mais/pablo-marcal-os-codigos-do-milhao.pdf",
+            "pdfs/arquivo2.pdf",
+            "pdfs/arquivo3.pdf",
+            // Adicione mais arquivos conforme necessário
+            // "pdfs/arquivo4.pdf",
+            // "pdfs/arquivo5.pdf",
+            // ... até 10.000
+        ];
+
         // Função para carregar o catálogo de PDFs
         function carregarCatalogoPDFs() {
             const catalogo = document.getElementById('catalogo');
@@ -179,18 +161,11 @@
         function carregarPDF(caminhoPDF) {
             const pdfFrame = document.getElementById('pdfFrame');
             pdfFrame.src = caminhoPDF;
-            document.getElementById('pdfContainer').style.display = 'block'; // Mostrar a moldura do PDF
+            pdfFrame.style.display = 'block'; // Mostrar a moldura do PDF
         }
-
-        // Função para fechar o PDF
-        document.getElementById('closeButton').onclick = () => {
-            document.getElementById('pdfContainer').style.display = 'none'; // Esconder a moldura do PDF
-            document.getElementById('pdfFrame').src = ''; // Limpar o src do iframe
-        };
 
         // Carregar o catálogo de PDFs ao iniciar
         carregarCatalogoPDFs();
     </script>
 </body>
 </html>
-
