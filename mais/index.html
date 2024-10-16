@@ -3,6 +3,7 @@
     <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
      <script src="https://senhorvinicius.github.io/header.js" defer></script>
   <div id="headerContainer"></div>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,7 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-        
+
         h1 {
             text-align: center;
         }
@@ -64,31 +65,27 @@
     <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
 
     <script>
-        // Configuração do PDF.js
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+        // Lista de PDFs (definida em JavaScript)
+        const pdfs = [
+            "mais/pablo-marcal-os-codigos-do-milhao.pdf",
+            "pdfs/arquivo2.pdf",
+            "pdfs/arquivo3.pdf"
+        ];
 
-        // Carregar os PDFs a partir do JSON na pasta 'dados'
-        fetch('mais/pdfs.json')  // Caminho para o JSON
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar o JSON: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(pdfs => {
-                const lista = document.getElementById('listaPDFs');
-                pdfs.forEach(pdfUrl => {
-                    const nomeArquivo = pdfUrl.split('/').pop(); // Nome do arquivo
-                    const itemPDF = document.createElement('li');
-                    itemPDF.classList.add('item-pdf');
-                    itemPDF.textContent = nomeArquivo;
+        // Função para carregar a lista de PDFs
+        function carregarListaPDFs() {
+            const lista = document.getElementById('listaPDFs');
+            pdfs.forEach(pdfUrl => {
+                const nomeArquivo = pdfUrl.split('/').pop(); // Nome do arquivo
+                const itemPDF = document.createElement('li');
+                itemPDF.classList.add('item-pdf');
+                itemPDF.textContent = nomeArquivo;
 
-                    // Adiciona o evento de clique
-                    itemPDF.onclick = () => carregarPDF(pdfUrl);
-                    lista.appendChild(itemPDF);
-                });
-            })
-            .catch(error => console.error('Erro ao carregar a lista de PDFs:', error));
+                // Adiciona o evento de clique
+                itemPDF.onclick = () => carregarPDF(pdfUrl);
+                lista.appendChild(itemPDF);
+            });
+        }
 
         // Função para carregar o PDF selecionado
         function carregarPDF(caminhoPDF) {
@@ -96,6 +93,9 @@
             pdfFrame.src = caminhoPDF;
             pdfFrame.style.display = 'block'; // Mostrar a moldura do PDF
         }
+
+        // Carregar a lista de PDFs ao iniciar
+        carregarListaPDFs();
     </script>
 </body>
 </html>
