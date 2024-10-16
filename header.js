@@ -1,4 +1,4 @@
-// header.js
+nh// header.js
 
         // Adiciona a tag do Google Analytics ao cabeçalho
         var gtagScript = document.createElement('script');
@@ -31,7 +31,7 @@ function criarHeader() {
 
     // Título da header
     const titulo = document.createElement('h1');
-    titulo.innerText = 'Meu Catálogo de PDFs';
+    titulo.innerText = 'senhorvinicius';
     titulo.style.margin = '0'; // Remove margens
     titulo.style.fontSize = '24px'; // Tamanho da fonte
 
@@ -40,9 +40,9 @@ function criarHeader() {
 
     // Cria os links de navegação
     const links = [
-        { texto: 'Home', url: 'index.html' },   // Substitua pelo URL desejado
-        { texto: 'Sobre', url: 'sobre.html' },   // Substitua pelo URL desejado
-        { texto: 'Contato', url: 'contato.html' } // Substitua pelo URL desejado
+        { texto: 'Livro Pablo Marcal Gratis', url: 'https://senhorvinicius.github.io/mais/' },   // Substitua pelo URL desejado
+        { texto: '100 mil canais por R$ 19,9', url: 'https://senhorvinicius.github.io/reiflick/index.html' },   // Substitua pelo URL desejado
+        { texto: 'Contato', url: 'https://wa.me/5516997235877?text=Ola' } // Substitua pelo URL desejado
     ];
 
     links.forEach(linkInfo => {
