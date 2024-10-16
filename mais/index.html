@@ -49,6 +49,15 @@
             height: auto; /* Altura automática para manter a proporção */
             aspect-ratio: 3 / 4; /* Proporção da miniatura (largura:altura) */
             border-bottom: 2px solid #444; /* Linha de separação */
+            display: flex; /* Flexbox para centralizar */
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center; /* Centraliza horizontalmente */
+            background-color: #fff; /* Fundo branco para a prévia */
+        }
+
+        canvas {
+            max-width: 100%; /* Limita a largura do canvas */
+            max-height: 100%; /* Limita a altura do canvas */
         }
 
         .titulo {
@@ -164,4 +173,3 @@
     </script>
 </body>
 </html>
-
