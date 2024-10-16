@@ -23,10 +23,10 @@
 
         .catalogo {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Colunas responsivas */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Colunas responsivas */
             gap: 15px;
             margin: 20px auto;
-            max-width: 800px;
+            max-width: 1200px;
         }
 
         .item-pdf {
@@ -37,6 +37,7 @@
             transition: transform 0.3s;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
 
         .item-pdf:hover {
@@ -45,16 +46,16 @@
 
         .preview {
             width: 100%; /* Largura da prévia */
-            height: 200px; /* Altura da prévia */
+            height: 240px; /* Altura da prévia */
             border-bottom: 2px solid #444; /* Linha de separação */
         }
 
         .titulo {
-            text-align: center;
             padding: 10px;
             font-weight: bold;
+            font-size: 14px;
+            color: #333;
             background-color: #fff;
-            border-top: 2px solid #444; /* Linha de separação */
         }
 
         /* Estilização da moldura do PDF */
@@ -86,7 +87,11 @@
         const pdfs = [
             "https://senhorvinicius.github.io/mais/pablo-marcal-os-codigos-do-milhao.pdf",
             "pdfs/arquivo2.pdf",
-            "pdfs/arquivo3.pdf"
+            "pdfs/arquivo3.pdf",
+            // Adicione mais arquivos conforme necessário
+            // "pdfs/arquivo4.pdf",
+            // "pdfs/arquivo5.pdf",
+            // ... até 10.000
         ];
 
         // Função para carregar o catálogo de PDFs
