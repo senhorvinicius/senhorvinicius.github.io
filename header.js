@@ -36,67 +36,49 @@
 
 /////////////////////
 
-
-        // Função para criar e mostrar o pop-up
-function criarPopup() {
-    // Criar overlay
-    const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    overlay.style.zIndex = '999';
-    overlay.style.display = 'none'; // Inicialmente escondido
-    document.body.appendChild(overlay);
-
-    // Criar pop-up
+// Aguarda 10 segundos antes de mostrar o pop-up
+setTimeout(() => {
+    // Cria o pop-up
     const popup = document.createElement('div');
     popup.style.position = 'fixed';
-    popup.style.top = '50%';
-    popup.style.left = '50%';
-    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.top = '20px'; // Distância do topo
+    popup.style.left = '50%'; // Centraliza horizontalmente
+    popup.style.transform = 'translateX(-50%)'; // Centraliza
     popup.style.backgroundColor = '#fff';
+    popup.style.border = '2px solid #444';
+    popup.style.borderRadius = '8px';
     popup.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
     popup.style.padding = '20px';
-    popup.style.borderRadius = '8px';
-    popup.style.zIndex = '1000';
-    popup.style.width = '400px';
-    popup.style.display = 'none'; // Inicialmente escondido
-    document.body.appendChild(popup);
-
-    // Conteúdo HTML do pop-up
+    popup.style.zIndex = '1000'; // Coloca acima de outros elementos
     popup.innerHTML = `
-        <h2>Bem-vindo ao nosso site!</h2>
-        <p>Este pop-up contém conteúdo em HTML. Você pode personalizá-lo como desejar.</p>
-        <div>
-            <h3>Conteúdo Adicional:</h3>
-            <p>Aqui estão algumas informações que você pode querer ver:</p>
-            <ul>
-                <li><strong>Informação 1:</strong> Detalhe interessante sobre o site.</li>
-                <li><strong>Informação 2:</strong> Outra informação relevante para os visitantes.</li>
-                <li><strong>Informação 3:</strong> Dicas e truques para navegar no site.</li>
-            </ul>
-        </div>
-        <img src="https://via.placeholder.com/150" alt="Imagem Exemplo" style="width: 100%; margin: 10px 0; border-radius: 5px;">
-        <p>Clique no botão abaixo para fechar.</p>
-        <button id="skipButton" style="background-color: #007BFF; color: white; border: none; padding: 15px 30px; font-size: 16px; cursor: pointer; border-radius: 5px;">Pular Propaganda</button>
+        <h1>Seu Título Aqui</h1>
+        <p>Conteúdo do pop-up em HTML pode ser inserido aqui.</p>
+        <button id="closePopup" style="background-color: #ff4444; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;">Pular Propaganda</button>
     `;
 
-    // Exibir o pop-up após 10 segundos
-    setTimeout(() => {
-        overlay.style.display = 'block'; 
-        popup.style.display = 'block'; 
-    }, 10000);
+    // Adiciona o pop-up ao headerContainer
+    const headerContainer = document.getElementById('headerContainer');
+    headerContainer.appendChild(popup);
 
-    // Fechar o pop-up ao clicar no botão
-    document.getElementById('skipButton').addEventListener('click', () => {
-        overlay.style.display = 'none';
-        popup.style.display = 'none';
-    });
-}
+    // Inicia o countdown de 10 segundos
+    let countdown = 10;
+    const countdownDisplay = document.createElement('div');
+    countdownDisplay.style.marginTop = '10px'; // Espaço entre o conteúdo e o countdown
+    countdownDisplay.innerText = `Fechar em ${countdown} segundos`;
+    popup.appendChild(countdownDisplay);
 
-// Executar a função para criar o pop-up ao carregar a página
-window.onload = criarPopup;
+    const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownDisplay.innerText = `Fechar em ${countdown} segundos`;
+        if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            popup.remove(); // Remove o pop-up após 10 segundos
+        }
+    }, 1000);
 
+    // Adiciona a ação de fechar ao botão
+    document.getElementById('closePopup').onclick = () => {
+        clearInterval(countdownInterval); // Para o countdown
+        popup.remove(); // Remove o pop-up ao clicar no botão
+    };
+}, 10000);
