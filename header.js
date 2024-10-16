@@ -14,6 +14,30 @@ nh// header.js
             gtag('config', 'G-68NNQZD8FS');
         `;
         document.head.appendChild(gtagInit);
+
+
+
+// Função para adicionar a tag canônica ao cabeçalho
+function addCanonicalLink() {
+    // Cria um elemento <link>
+    const canonicalLink = document.createElement('link');
+    
+    // Define os atributos do link
+    canonicalLink.rel = 'canonical';
+    canonicalLink.href = 'https://senhorvinicius.github.io/'; // Substitua pela URL da página principal
+    
+    // Adiciona o elemento ao <head>
+    document.head.appendChild(canonicalLink);
+}
+
+// Chama a função ao carregar a página
+document.addEventListener('DOMContentLoaded', addCanonicalLink);
+
+
+
+
+
+
 // header.js
 
 // Função para criar a header
