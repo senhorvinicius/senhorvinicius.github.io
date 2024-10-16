@@ -2,7 +2,7 @@
 <script src="https://senhorvinicius.github.io/redirect.js" defer></script>
      <script src="https://senhorvinicius.github.io/header.js" defer></script>
   <div id="headerContainer"></div>
-<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,6 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
-            position: relative; /* Para permitir que o PDF flutue acima */
         }
 
         h1 {
@@ -72,18 +71,14 @@
 
         /* Estilização da moldura do PDF */
         .pdf-moldura {
-            position: absolute; /* Altera para posição absoluta */
-            top: 20px; /* Distância do topo da página */
-            left: 50%; /* Alinhamento ao centro */
-            transform: translateX(-50%); /* Centraliza o iframe */
             border: 2px solid #444;
             border-radius: 8px;
-            width: 90%; /* Largura responsiva */
+            width: 100%; /* Largura responsiva */
             max-width: 800px; /* Máximo de largura */
             height: 600px;
+            margin: 20px auto;
             display: none; /* Inicialmente escondido */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 10; /* Coloca acima dos outros elementos */
         }
     </style>
     <!-- Adicionando a biblioteca PDF.js -->
@@ -92,23 +87,26 @@
 <body>
     <h1>Catálogo de PDFs</h1>
 
-    <!-- Moldura do PDF -->
-    <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
-
     <!-- Catálogo de PDFs -->
     <div class="catalogo" id="catalogo"></div>
 
+    <!-- Moldura do PDF -->
+    <iframe class="pdf-moldura" id="pdfFrame" src="" type="application/pdf"></iframe>
+
     <script>
-        // Função para carregar a lista de PDFs a partir do arquivo JSON
-        async function carregarPDFsJSON() {
-            const response = await fetch('https://senhorvinicius.github.io/mais/pdfs.json');
-            const data = await response.json();
-            return data.pdfs; // Retorna a lista de PDFs
-        }
+        // Lista de PDFs (definida em JavaScript)
+        const pdfs = [
+            "https://senhorvinicius.github.io/mais/pablo-marcal-os-codigos-do-milhao.pdf",
+            "pdfs/arquivo2.pdf",
+            "pdfs/arquivo3.pdf",
+            // Adicione mais arquivos conforme necessário
+            // "pdfs/arquivo4.pdf",
+            // "pdfs/arquivo5.pdf",
+            // ... até 10.000
+        ];
 
         // Função para carregar o catálogo de PDFs
-        async function carregarCatalogoPDFs() {
-            const pdfs = await carregarPDFsJSON(); // Carrega a lista de PDFs
+        function carregarCatalogoPDFs() {
             const catalogo = document.getElementById('catalogo');
             pdfs.forEach(pdfUrl => {
                 const nomeArquivo = pdfUrl.split('/').pop(); // Nome do arquivo
@@ -174,3 +172,4 @@
     </script>
 </body>
 </html>
+
