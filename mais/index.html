@@ -70,14 +70,14 @@
         .pdf-moldura {
             border: 2px solid #444;
             border-radius: 8px;
-            width: 90%; /* Largura responsiva */
+            width: 100%; /* Largura responsiva */
             max-width: 800px; /* Máximo de largura */
             height: 600px;
             margin: 20px auto;
             display: none; /* Inicialmente escondido */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             position: fixed; /* Posição fixa */
-            top: 50px; /* Distância do topo */
+            top: 20px; /* Distância do topo */
             left: 50%; /* Centraliza horizontalmente */
             transform: translateX(-50%); /* Centraliza horizontalmente */
             z-index: 100; /* Aparece acima de outros elementos */
@@ -106,14 +106,14 @@
 <body>
     <h1>Catálogo de PDFs</h1>
 
+    <!-- Catálogo de PDFs -->
+    <div class="catalogo" id="catalogo"></div>
+
     <!-- Moldura do PDF -->
     <div class="pdf-moldura" id="pdfContainer">
         <button class="close-button" id="closeButton">Fechar</button>
         <iframe id="pdfFrame" src="" type="application/pdf"></iframe>
     </div>
-
-    <!-- Catálogo de PDFs -->
-    <div class="catalogo" id="catalogo"></div>
 
     <script>
         // Função para carregar o catálogo de PDFs
