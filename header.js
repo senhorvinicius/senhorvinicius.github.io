@@ -11,7 +11,7 @@
                 </ul>
                 <button id="ad-button">Anuncie Aqui</button>
             </nav>
-            <meta name="google-adsense-account" content="ca-pub-1400042570017638">
+           
         </header>
     `;
 
