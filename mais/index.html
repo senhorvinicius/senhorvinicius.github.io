@@ -68,7 +68,7 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
         // Carregar os PDFs a partir do JSON na pasta 'dados'
-        fetch('dados/pdfs.json')  // Caminho para o JSON
+        fetch('mais/pdfs.json')  // Caminho para o JSON
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Erro ao carregar o JSON: ' + response.statusText);
