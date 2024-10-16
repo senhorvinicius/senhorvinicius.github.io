@@ -9,6 +9,7 @@
                     <li><a href="contato.html">Contato</a></li>
                     <li><a href="https://www.novosite.com">Outro Site</a></li>
                 </ul>
+                <button id="ad-button">Anuncie Aqui</button>
             </nav>
         </header>
     `;
@@ -31,5 +32,10 @@
             gtag('config', 'G-68NNQZD8FS');
         `;
         document.head.appendChild(gtagInit);
+
+        // Adiciona a funcionalidade do botão
+        document.getElementById('ad-button').addEventListener('click', function() {
+            window.open('https://wa.me/5516997235877?text=oi%20quero%20anunciar%20no%20site', '_blank'); // Altere o link para o URL desejado
+        });
     });
 })();
