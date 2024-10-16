@@ -41,51 +41,42 @@
     });
 })();
 
+// Função para criar o botão de contagem regressiva
+function criarBotaoCountdown() {
+    const headerContainer = document.getElementById('headerContainer');
 
-// Cria e adiciona o botão ao corpo da página
-const button = document.createElement('button');
-button.id = 'redirectButton';
-button.innerText = 'Abrir página em 10 segundos';
-document.body.appendChild(button);
+    // Cria o botão
+    const botao = document.createElement('button');
+    botao.style.backgroundColor = '#4CAF50'; // Cor de fundo
+    botao.style.color = 'white'; // Cor do texto
+    botao.style.border = 'none'; // Sem borda
+    botao.style.padding = '15px 32px'; // Espaçamento
+    botao.style.textAlign = 'center'; // Centraliza texto
+    botao.style.textDecoration = 'none'; // Sem sublinhado
+    botao.style.display = 'inline-block'; // Exibe como bloco inline
+    botao.style.fontSize = '16px'; // Tamanho da fonte
+    botao.style.margin = '4px 2px'; // Margem
+    botao.style.cursor = 'pointer'; // Cursor pointer
+    botao.style.borderRadius = '8px'; // Bordas arredondadas
+    botao.id = 'botaoCountdown'; // ID do botão
 
-// Cria e adiciona o contador ao corpo da página
-const countdown = document.createElement('div');
-countdown.id = 'countdown';
-countdown.innerText = '10';
-document.body.appendChild(countdown);
+    // Adiciona o texto inicial
+    let contador = 10;
+    botao.textContent = `Redirecionar em ${contador} segundos`;
+    headerContainer.appendChild(botao);
 
-// Define o link para abrir após 10 segundos
-const linkToOpen = 'https://www.exemplo.com'; // Substitua pelo link desejado
+    // Função para atualizar a contagem
+    const intervalo = setInterval(() => {
+        contador--;
+        botao.textContent = `Redirecionar em ${contador} segundos`;
 
-// Função que atualiza o countdown e abre a nova página
-let timeLeft = 10;
-const timer = setInterval(() => {
-    timeLeft -= 1;
-    countdown.innerText = timeLeft;
+        if (contador <= 0) {
+            clearInterval(intervalo);
+            // Redireciona para a URL especificada
+            window.location.href = 'https://www.exemplo.com'; // Substitua pelo seu link
+        }
+    }, 1000); // Atualiza a cada segundo
+}
 
-    if (timeLeft <= 0) {
-        clearInterval(timer);
-        // Abre a nova aba com o link especificado
-        window.open(linkToOpen, '_blank');
-        button.disabled = true; // Desativa o botão
-        button.innerText = 'Página aberta!';
-    }
-}, 1000);
-
-// Estiliza o botão
-button.style.padding = '15px 30px';
-button.style.fontSize = '18px';
-button.style.backgroundColor = '#4CAF50'; // Cor do botão
-button.style.color = 'white'; // Cor do texto
-button.style.border = 'none';
-button.style.borderRadius = '5px';
-button.style.cursor = 'pointer';
-button.style.transition = 'background-color 0.3s';
-
-button.onmouseover = () => {
-    button.style.backgroundColor = '#45a049'; // Cor ao passar o mouse
-};
-
-button.onmouseout = () => {
-    button.style.backgroundColor = '#4CAF50'; // Cor padrão
-};
+// Chama a função para criar o botão
+criarBotaoCountdown();
