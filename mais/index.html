@@ -45,7 +45,7 @@
         }
     </style>
     <!-- Adicionando a biblioteca PDF.js -->
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
 <body>
     <h1>Catálogo de PDFs</h1>
@@ -58,10 +58,10 @@
 
     <script>
         // Configuração do PDF.js
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
         // Carregar os PDFs a partir do JSON
-        fetch('/mais/pdfs.json')
+        fetch('senhorvinicius/senhorvinicius.github.io/mais/pdfs.json')
             .then(response => response.json())
             .then(pdfs => {
                 const catalogo = document.getElementById('catalogoPDFs');
@@ -79,43 +79,4 @@
                 pdf.getPage(1).then(page => {
                     const viewport = page.getViewport({ scale: 0.5 });
                     const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-
-                    // Renderizar a página no canvas
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext).promise.then(() => {
-                        // Criar o elemento de item do catálogo
-                        const itemPDF = document.createElement('div');
-                        itemPDF.classList.add('item-pdf');
-                        itemPDF.onclick = () => carregarPDF(pdfUrl);
-
-                        // Adicionar a miniatura ao item
-                        const imgThumbnail = document.createElement('img');
-                        imgThumbnail.src = canvas.toDataURL();
-                        imgThumbnail.classList.add('thumbnail');
-                        itemPDF.appendChild(imgThumbnail);
-
-                        // Adicionar o nome do arquivo
-                        const nomeArquivo = document.createElement('p');
-                        nomeArquivo.textContent = pdfUrl.split('/').pop();
-                        itemPDF.appendChild(nomeArquivo);
-
-                        // Adicionar o item ao catálogo
-                        catalogo.appendChild(itemPDF);
-                    });
-                });
-            }).catch(error => console.error('Erro ao renderizar a miniatura do PDF:', error));
-        }
-
-        // Função para carregar o PDF selecionado
-        function carregarPDF(caminhoPDF) {
-            document.getElementById('pdfFrame').src = caminhoPDF;
-        }
-    </script>
-</body>
-</html>
+                    const context = canvas
