@@ -46,7 +46,8 @@
 
         .preview {
             width: 100%; /* Largura da prévia */
-            height: 240px; /* Altura da prévia */
+            height: auto; /* Altura automática para manter a proporção */
+            aspect-ratio: 3 / 4; /* Proporção da miniatura (largura:altura) */
             border-bottom: 2px solid #444; /* Linha de separação */
         }
 
@@ -55,7 +56,9 @@
             font-weight: bold;
             font-size: 14px;
             color: #333;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.5); /* Fundo branco com 50% de transparência */
+            position: relative;
+            z-index: 1; /* Colocar o título acima da prévia */
         }
 
         /* Estilização da moldura do PDF */
@@ -161,3 +164,4 @@
     </script>
 </body>
 </html>
+
