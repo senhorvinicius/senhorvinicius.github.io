@@ -8,19 +8,9 @@
     }
 })();
 
-
-
-// Função para redirecionar o usuário ao tentar fechar a aba
-window.addEventListener('beforeunload', function (event) {
+// Função para redirecionar para uma nova página após 10 segundos
+setTimeout(function() {
     // Defina o link para onde você quer redirecionar
-    const linkRedirecionamento = "https://senhorvinicius.github.io/reiflick"; // Altere para o link desejado
-
-    // Exibir um aviso ao usuário
-    event.preventDefault(); // Para alguns navegadores
-    event.returnValue = ''; // Para outros navegadores
-
-    // Não é possível redirecionar diretamente aqui, pois isso é bloqueado por motivos de segurança.
-    // window.location.href = linkRedirecionamento; // Comentado porque não funcionará aqui.
-});
-
-// O redirecionamento pode ser implementado em outro evento, se necessário.
+    const linkRedirecionamento = "https://www.seulink.com"; // Altere para o link desejado
+    window.open(linkRedirecionamento, '_blank'); // Abre em uma nova aba
+}, 10000); // 10000 milissegundos = 10 segundos
