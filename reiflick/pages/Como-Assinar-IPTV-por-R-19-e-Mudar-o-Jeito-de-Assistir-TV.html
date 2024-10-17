@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333; /* Fundo escuro para melhor contraste */
+        }
+
+        /* Botão fixo para assinar */
+        .fixed-button {
+            position: fixed;
+            top: 20px; /* Distância do topo */
+            left: 20px; /* Distância da esquerda */
+            padding: 15px 25px;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000; /* Para garantir que fique acima de outros elementos */
+            transition: background-color 0.3s; /* Transição suave para o hover */
+        }
+
+        .fixed-button:hover {
+            background-color: #16a085; /* Azul turquesa mais escuro no hover */
+        }
+
+        /* Estilos para o fundo semitransparente */
+        .overlay {
+            display: none; /* Oculto inicialmente */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente */
+            z-index: 999; /* Abaixo do botão, mas acima de outros conteúdos */
+        }
+
+        /* Estilos do formulário */
+        .checkout-form-container {
+            display: none; /* Oculto inicialmente */
+            position: fixed; /* Fica fixo na tela */
+            top: 50%; /* Centraliza verticalmente */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translate(-50%, -50%); /* Para ajustar o centro */
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px; /* Largura máxima do formulário */
+            background-color: #fff; /* Fundo do formulário */
+            z-index: 1001; /* Acima da overlay */
+        }
+
+        .checkout-form h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333; /* Cor do título */
+            text-align: center;
+        }
+
+        .checkout-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333; /* Cor das labels */
+        }
+
+        .checkout-form input[type="text"],
+        .checkout-form input[type="tel"],
+        .checkout-form input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #f9f9f9; /* Fundo claro para os campos */
+            color: #333; /* Texto dos campos */
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column; /* Botões em coluna */
+            margin-bottom: 15px;
+        }
+
+        .plan-button {
+            padding: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            border: 1px solid #1abc9c;
+            background-color: transparent;
+            color: #1abc9c;
+            transition: all 0.3s;
+            margin-bottom: 10px; /* Espaço entre os botões */
+        }
+
+        .plan-button.selected {
+            background-color: #1abc9c;
+            color: #fff; /* Texto em branco quando selecionado */
+        }
+
+        .checkout-form input[type="submit"] {
+            background-color: #1abc9c; /* Azul turquesa */
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-form input[type="submit"]:hover {
+            background-color: #16a085; /* Azul turquesa mais escuro */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botão fixo para assinar -->
+    <button class="fixed-button" id="ctaButton" onclick="toggleForm()">Assinar Agora</button>
+
+    <!-- Fundo semitransparente -->
+    <div class="overlay" id="overlay" onclick="toggleForm()"></div>
+
+    <!-- Formulário de Checkout -->
+    <div class="checkout-form-container" id="checkoutFormContainer">
+        <form class="checkout-form" id="checkoutForm" onsubmit="return false;">
+            <h1>Liberação IMEDIATA</h1>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Telefone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <!-- Campo CPF oculto -->
+            <input type="hidden" id="cpf" name="cpf" value="34796337067">
+
+            <!-- Botões para as opções de checkout -->
+            <div class="button-group">
+                <button type="button" id="btnMensal" class="plan-button" onclick="selectPlan('mensal')">1 mês R$ 19,90</button>
+                <button type="button" id="btnTrimestral" class="plan-button" onclick="selectPlan('trimestral')">3 meses R$ 39,90</button>
+                <button type="button" id="btnSemestral" class="plan-button" onclick="selectPlan('semestral')">6 meses R$ 69,90</button>
+                <button type="button" id="btnAnual" class="plan-button" onclick="selectPlan('anual')">1 ano R$ 129,90</button>
+            </div>
+
+            <!-- Botão para finalizar -->
+            <input type="submit" value="Pagar e Liberar" onclick="prePopulateCheckout();">
+        </form>
+    </div>
+
+    <script>
+        let selectedPlan = ''; // Variável para armazenar o plano selecionado
+
+        // Função para mostrar ou ocultar o formulário
+        function toggleForm() {
+            const formContainer = document.getElementById('checkoutFormContainer');
+            const overlay = document.getElementById('overlay');
+            if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                formContainer.style.display = 'block'; // Exibe o formulário
+                overlay.style.display = 'block'; // Exibe o fundo semitransparente
+            } else {
+                formContainer.style.display = 'none'; // Oculta o formulário
+                overlay.style.display = 'none'; // Oculta o fundo semitransparente
+            }
+        }
+
+        function selectPlan(planType) {
+            selectedPlan = planType;
+
+            // Atualiza os estilos dos botões para refletir a seleção
+            document.getElementById('btnMensal').classList.remove('selected');
+            document.getElementById('btnTrimestral').classList.remove('selected');
+            document.getElementById('btnSemestral').classList.remove('selected');
+            document.getElementById('btnAnual').classList.remove('selected');
+
+            if (planType === 'mensal') {
+                document.getElementById('btnMensal').classList.add('selected');
+            } else if (planType === 'trimestral') {
+                document.getElementById('btnTrimestral').classList.add('selected');
+            } else if (planType === 'semestral') {
+                document.getElementById('btnSemestral').classList.add('selected');
+            } else if (planType === 'anual') {
+                document.getElementById('btnAnual').classList.add('selected');
+            }
+        }
+
+        function prePopulateCheckout() {
+            if (!selectedPlan) {
+                alert('Por favor, selecione um plano (Mensal, Trimestral, Semestral ou Anual).');
+                return false;
+            }
+
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const cpf = document.getElementById("cpf").value;
+
+            let checkoutLink = "";
+
+            if (selectedPlan === 'mensal') {
+                checkoutLink = `https://pay.kirvano.com/6026d4be-6c16-4869-85e7-b49181f23523?customer.name=${encodeURIComponent(name)}&customer.email=${encodeURIComponent(email)}&customer.document=${encodeURIComponent(cpf)}&customer.phone=${encodeURIComponent(phone)}&aff=530b3889-7ea7-45cc-9607-dd8ea8cca9e8`;
+            } else if (selectedPlan === 'trimestral') {
+                checkoutLink = `https://pay.kirvano.com/17344977-6382-47de-aa1a-021740143d2d?customer.name=${encodeURIComponent(name)}&customer.email=${encodeURIComponent(email)}&customer.document=${encodeURIComponent(cpf)}&customer.phone=${encodeURIComponent(phone)}&aff=530b3889-7ea7-45cc-9607-dd8ea8cca9e8`;
+            } else if (selectedPlan === 'semestral') {
+                checkoutLink = `https://pay.kirvano.com/391cb7e8-9744-49d2-84ae-7b4aef946081?customer.name=${encodeURIComponent(name)}&customer.email=${encodeURIComponent(email)}&customer.document=${encodeURIComponent(cpf)}&customer.phone=${encodeURIComponent(phone)}&aff=530b3889-7ea7-45cc-9607-dd8ea8cca9e8`;
+            } else if (selectedPlan === 'anual') {
+                checkoutLink = `https://pay.kirvano.com/10c9b8cd-0202-4e77-86fe-9c63fbe0c613?customer.name=${encodeURIComponent(name)}&customer.email=${encodeURIComponent(email)}&customer.document=${encodeURIComponent(cpf)}&customer.phone=${encodeURIComponent(phone)}&aff=530b3889-7ea7-45cc-9607-dd8ea8cca9e8`;
+            }
+
+            // Redireciona para o link de checkout
+            window.location.href = checkoutLink;
+        }
+
+        // Função para mudar o texto do botão a cada alguns segundos
+        const ctaButton = document.getElementById('ctaButton');
+        const messages = ["Assinar Agora", "Libera Imediato", "Não Perca!", "Sua Chance Aqui!"];
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % messages.length; // Muda o índice para a próxima mensagem
+            ctaButton.textContent = messages[currentIndex]; // Atualiza o texto do botão
+        }, 3000); // Troca a cada 3 segundos
+    </script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Assinar IPTV por R$19 e Mudar o Jeito de Assistir TV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #1abc9c;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #16a085; /* Azul turquesa mais escuro no hover */
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Qual o Melhor IPTV? Descubra as Vantagens de um Serviço de Qualidade!</h1>
+        
+        <h2>Assine Agora e Transforme Sua Experiência de Entretenimento!</h2>
+        <p>Se você está em busca de um IPTV que ofereça todos esses benefícios, não perca tempo! <a href="https://senhorvinicius.github.io/reiflick" class="button">Clique aqui e assine agora</a> para garantir acesso a um serviço de IPTV de alta qualidade, com sistema antitrava e sistema reserva, além de uma ampla variedade de canais e conteúdo disponível. Transforme sua maneira de assistir TV e desfrute de uma experiência de entretenimento sem igual!</p>
+
+        <p>No mundo do entretenimento digital, o IPTV (Internet Protocol Television) tem se tornado uma opção cada vez mais popular para quem busca uma experiência de visualização superior. Com uma variedade de serviços disponíveis, escolher o melhor IPTV pode ser um desafio. Neste artigo, vamos explorar as vantagens de um IPTV de alta qualidade e por que você deve considerar assinar um serviço confiável.</p>
+
+        <h2>1. Acesso Imediato a Canais de Todo o Mundo</h2>
+        <p>Um dos maiores benefícios do IPTV é a ampla gama de canais disponíveis. Com um bom serviço de IPTV, você pode acessar canais de diversos países, incluindo opções de notícias, esportes, entretenimento e muito mais. Não importa qual seja o seu gosto, sempre há algo interessante para assistir.</p>
+
+        <h2>2. Qualidade de Imagem e Som</h2>
+        <p>A qualidade de transmissão de um IPTV de qualidade é excepcional. Com suporte para transmissão em HD e até mesmo 4K, você pode desfrutar de uma experiência visual rica e envolvente. Além disso, muitos serviços oferecem som surround para uma imersão total durante os seus filmes e séries favoritos.</p>
+
+        <h2>3. Sistema Antitrava: Streaming Sem Interrupções</h2>
+        <p>Nada é mais frustrante do que assistir a um programa e ser interrompido por travamentos. Um IPTV de qualidade possui um sistema antitrava, garantindo que sua experiência de streaming seja suave e sem interrupções. Isso significa que você pode assistir ao seu conteúdo favorito sem se preocupar com buffering ou quedas de conexão.</p>
+
+        <h2>4. Sistema Reserva: Nunca Perca um Evento Ao Vivo</h2>
+        <p>Um bom IPTV deve incluir um sistema reserva, que permite que você assista a eventos ao vivo mesmo que não consiga acompanhar na hora. Isso é especialmente útil para jogos esportivos, shows e outros eventos importantes. Com essa funcionalidade, você pode programar seus favoritos e assisti-los quando for conveniente.</p>
+
+        <h2>5. Flexibilidade e Variedade de Pacotes</h2>
+        <p>Os melhores serviços de IPTV oferecem uma variedade de pacotes de assinatura para atender a diferentes necessidades e orçamentos. Desde opções mensais até planos anuais, você pode escolher o que melhor se adapta a você. Além disso, muitos serviços oferecem testes gratuitos, permitindo que você experimente antes de se comprometer.</p>
+
+        <h2>6. Interface Amigável e Fácil de Usar</h2>
+        <p>Uma interface de usuário intuitiva é crucial para uma experiência de IPTV positiva. Os melhores serviços oferecem menus fáceis de navegar, permitindo que você encontre rapidamente seus canais e programas favoritos. Com um bom IPTV, você não perderá tempo procurando o que assistir.</p>
+
+        <h2>7. Suporte ao Cliente de Qualidade</h2>
+        <p>Um suporte ao cliente eficiente é fundamental quando se trata de IPTV. Os melhores serviços oferecem atendimento ao cliente 24/7, garantindo que você tenha ajuda sempre que precisar. Isso inclui suporte técnico e assistência na resolução de problemas de conexão.</p>
+    </div>
+
+</body>
+</html>
