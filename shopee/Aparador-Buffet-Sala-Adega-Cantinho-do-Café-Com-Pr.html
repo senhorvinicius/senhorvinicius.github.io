@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aparador Buffet Sala Adega Cantinho do Café Com Prateleira Pés Retrô em madeira Off white</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        button {
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 5px;  /* Adiciona um espaço entre os botões */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black;  /* Contorno preto nas letras */
+        }
+        .btn-produto {
+            background-color: orange;  /* Cor do botão "Ir para o produto" */
+        }
+        .btn-grupo {
+            background-color: green;  /* Cor do botão "Entrar no grupo de promoções" */
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+    <script>
+        function loadHeader() {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => console.error('Erro ao carregar o cabeçalho:', error));
+        }
+    </script>
+</head>
+<body onload="loadHeader()">
+    <div id="header"></div>
+    <h1>Aparador Buffet Sala Adega Cantinho do Café Com Prateleira Pés Retrô em madeira Off white</h1>  <!-- Mostra o título do produto -->
+    <img src="https://cf.shopee.com.br/file/32cd63192e6290ace9e5f7d4f50b7cc8" alt="Aparador Buffet Sala Adega Cantinho do Café Com Prateleira Pés Retrô em madeira Off white">
+    <br><br>
+    <a href="https://shope.ee/an_redir?origin_link=https%3A%2F%2Fshopee.com.br%2Fproduct%2F549410257%2F14990692418">
+        <button class="btn-produto">Ir para o produto</button>
+    </a>
+    <a href="https://senhorvinicius.github.io/shopee/redirect/1" target="_blank">
+        <button class="btn-grupo">Entrar no grupo de promoções relâmpago</button>
+    </a>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Half Pan Plastica Vazia Para Aquarela C/ 12 Un</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        button {
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin: 5px;  /* Adiciona um espaço entre os botões */
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black;  /* Contorno preto nas letras */
+        }
+        .btn-produto {
+            background-color: orange;  /* Cor do botão "Ir para o produto" */
+        }
+        .btn-grupo {
+            background-color: green;  /* Cor do botão "Entrar no grupo de promoções" */
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+    <script>
+        function loadHeader() {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => console.error('Erro ao carregar o cabeçalho:', error));
+        }
+    </script>
+</head>
+<body onload="loadHeader()">
+    <div id="header"></div>
+    <h1>Half Pan Plastica Vazia Para Aquarela C/ 12 Un</h1>  <!-- Mostra o título do produto -->
+    <img src="https://cf.shopee.com.br/file/ee2eb8933c9e0d42e2a76bdae138ec19" alt="Half Pan Plastica Vazia Para Aquarela C/ 12 Un">
+    <br><br>
+    <a href="https://shope.ee/an_redir?origin_link=https%3A%2F%2Fshopee.com.br%2Fproduct%2F377053425%2F13073177176">
+        <button class="btn-produto">Ir para o produto</button>
+    </a>
+    <a href="https://senhorvinicius.github.io/shopee/redirect/1" target="_blank">
+        <button class="btn-grupo">Entrar no grupo de promoções relâmpago</button>
+    </a>
+</body>
+</html>
